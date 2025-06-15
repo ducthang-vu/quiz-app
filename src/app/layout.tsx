@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { MarkGithubIcon } from '@primer/octicons-react'
 import "./globals.css";
+import styles from "@/app/layout.module.css";
+import Link from 'next/link';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,7 +28,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <div className={styles.container}>
+          <header className={styles.header}>
+            <a href="/">Quiz App!</a>
+            <nav>
+              <Link href="/info">Info</Link>
+            </nav>
+          </header>
+          <main className={styles.main}>
+            {children}
+          </main>
+          <footer className={styles.footer}>
+            <span>
+              Made by Thang<br/>09/06/2025
+            </span>
+            <a href="https://github.com/ducthang-vu/quiz-app"><MarkGithubIcon size={16}/></a>
+          </footer>
+        </div>
       </body>
     </html>
   );
