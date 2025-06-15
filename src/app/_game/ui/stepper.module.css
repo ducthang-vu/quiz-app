@@ -1,0 +1,22 @@
+.stepper {
+    width: 100%;
+    display: flex;
+
+    .stepper__item {
+        display: inline-block;
+        height: 0.25rem;
+        flex-grow: 1;
+    }
+
+    .isBefore {
+        background-color: var(--primary);
+    }
+
+    .isCurrent {
+        background-color: var(--bark-primary);
+    }
+
+}
+
+
+

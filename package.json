@@ -1,59 +1,33 @@
 {
-  "homepage": "https://ducthang-vu.github.io/quizApp/",
   "name": "quiz-app",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/styles": "^4.11.4",
-    "@reduxjs/toolkit": "^1.5.1",
-    "axios": "^0.21.1",
-    "axios-observable": "^1.1.6",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-redux": "^9.1.0",
-    "react-router": "^6.21.3",
-    "react-router-dom": "^6.21.3",
-    "react-scripts": "^5.0.1",
-    "redux-observable": "^1.2.0",
-    "rxjs": "^6.6.7",
-    "sass": "^1.70.0"
-  },
   "scripts": {
-    "start": "CHOKIDAR_USEPOLLING=true react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --coverage",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "vitest"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "@primer/octicons-react": "^19.15.2",
+    "next": "15.3.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.10",
-    "@testing-library/react": "^11.2.6",
-    "@testing-library/user-event": "^13.1.3",
-    "@types/jest": "^26.0.22",
-    "@types/node": "^14.14.41",
-    "@types/react": "^17.0.3",
-    "@types/react-dom": "^18.2.18",
-    "@types/react-router": "^5.1.13",
-    "@types/react-router-dom": "^5.1.7",
-    "gh-pages": "^3.1.0",
-    "ts-jest": "^26.5.5",
-    "typescript": "^4.2.4"
+    "@eslint/eslintrc": "^3",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.5.1",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.3",
+    "jsdom": "^26.1.0",
+    "typescript": "^5",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.2.2"
   }
 }

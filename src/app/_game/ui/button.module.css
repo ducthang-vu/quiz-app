@@ -1,0 +1,7 @@
+.primary {
+    background-color: var(--primary);
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.2rem;
+    box-shadow: var(--elevation);
+}
