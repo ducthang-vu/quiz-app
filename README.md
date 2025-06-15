@@ -1,5 +1,5 @@
 # QuizAPP
-QuizApp is is a simple quiz game build with React. Enjoy!
+QuizApp is a simple quiz game build with React. Enjoy!
 
 The questions are fetch from [Open Trivia DB](https://opentdb.com/) public API.
 
