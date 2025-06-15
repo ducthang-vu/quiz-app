@@ -9,6 +9,7 @@ export interface TokenResponse extends BaseResponse {
 
 const SERVER_ERROR_RESPONSE = NextResponse.json({ status: 500, message: 'Server Error' });
 
+// TODO this only works in localhost, need a real db because vercel use lambda
 let token: string | null = null;
 
 async function getToken(): Promise<TokenResponse> {
@@ -23,9 +24,13 @@ function replaceQuotes(str: string): string {
         .replace(/&gt;/g, '>')
         .replace(/&#39;/g, '"')
         .replace(/&#039;s/g, '')
+        .replace(/&#039;/g, "'")
+        .replace(/&eacute;/g, 'é')
+        .replace(/&rsquo;/g, "'")
+        .replace(/&divide;/, '/');
 }
 
-export async function _GET(req: NextRequest): Promise<NextResponse> {
+async function _GET(req: NextRequest): Promise<NextResponse> {
     if (!token) {
         console.log('Fetching new token.');
         token = await getToken().then(r => r.token);
