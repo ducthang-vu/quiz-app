@@ -1,11 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { Question, QuestionsResponse } from '@/core/open-trivia';
+import { Question } from '@/core/open-trivia';
 import InitialForm, { FormValue } from '@/app/_game/initial-form';
 import QuestionCmp from '@/app/_game/question';
 import End from '@/app/_game/end';
-import Stepper from './ui/stepper';
 
 type GamePhase = 'initial' | 'playing' | 'end';
 

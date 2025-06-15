@@ -30,7 +30,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <div className={styles.container}>
           <header className={styles.header}>
-            <a href="/">Quiz App!</a>
+            <Link href="/">Quiz App!</Link>
             <nav>
               <Link href="/info">Info</Link>
             </nav>

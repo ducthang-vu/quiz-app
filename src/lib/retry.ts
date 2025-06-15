@@ -1,7 +1,7 @@
-export function withRetry<T>(promiseFactory: (...args: any[]) => Promise<T>): (...args: any[]) => Promise<T> {
+export function withRetry<T, S extends unknown[]>(promiseFactory: (...args: S) => Promise<T>): (...args: S) => Promise<T> {
     let retried = false;
 
-    return (...args: any[]): Promise<T> => {
+    return (...args: S): Promise<T> => {
         return promiseFactory(...args)
             .catch((error) => {
                 if (retried) {
