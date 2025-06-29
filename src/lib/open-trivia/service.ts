@@ -20,7 +20,15 @@ async function getToken(): Promise<string> {
 }
 
 async function getQuestions(payload: GetQuestionsParams): Promise<Question[]> {
-    const res: Response =  await fetch(`https://opentdb.com/api.php?amount=${payload.amount}&token=${payload.token}`);
+    console.log(`Fetching new questions from OpenTrivia: ${JSON.stringify(payload)}`);
+    const queryParams = new URLSearchParams(`amount=${payload.amount}&token=${payload.token}`);
+    if (payload.type !== 'both') {
+        queryParams.append('type', payload.type);
+    }
+    if (payload.difficulty && payload.difficulty !== 'any_difficulty') {
+        queryParams.append('difficulty', payload.difficulty);
+    }
+    const res: Response =  await fetch(`https://opentdb.com/api.php?${queryParams}`);
     const body = await res.json() as QuestionsResponse;
     if (!res.ok) {
         const error = new HttpError(JSON.stringify(body), res.status);

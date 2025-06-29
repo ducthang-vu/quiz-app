@@ -1,31 +1,43 @@
 import styles from '@/app/_game/ui/radio-group.module.css';
 import { useState } from 'react';
 
-interface Props {
-    legend: string;
-    name: string;
-    options: string[];
+export interface Option<T extends string = string> {
+    value: T;
+    label: string;
 }
 
-export default function RadioGroup({ legend, name, options}: Props) {
-    const [value, setValue] = useState<typeof options[number] | null>(null);
+interface Props<T extends string> {
+    legend: string;
+    name: string;
+    options: (T | Option<T>)[];
+}
+
+function optionAdapter<T extends string>(option: T | Option<T>): Option<T> {
+    if (typeof option === 'string') {
+        return { value: option, label: option };
+    }
+    return option;
+}
+
+export default function RadioGroup<T extends string>({ legend, name, options}: Props<T>) {
+    const [value, setValue] = useState<T | null>(null);
+    const optionsData: Option<T>[]  = options.map(optionAdapter);
 
     return (
         <fieldset className={styles.formControl}>
             <legend className={styles.formControl__legend}>{legend}</legend>
 
-            { options.map((o: string, i: number) => (
-                <label className={styles.formControlRadio} key={i}>
+            { optionsData.map((o: Option<T>) => (
+                <label className={styles.formControlRadio} key={o.value}>
                     <input
                         type="radio"
-                        id={'n' + i}
-                        value={o}
+                        value={o.value}
                         name={name}
                         required
-                        checked={value === o}
-                        onChange={() => setValue(o)}
+                        checked={value === o.value}
+                        onChange={() => setValue(o.value)}
                     />
-                    <span>{o}</span>
+                    <span>{o.label}</span>
                 </label>
             ))}
         </fieldset>

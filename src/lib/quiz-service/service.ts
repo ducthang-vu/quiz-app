@@ -1,8 +1,7 @@
 import * as redis from 'redis';
-import { PlayerRecord, QuizQuestion } from '@/lib/quiz-service/types';
+import { CreateQuizPayload, PlayerRecord, QuizQuestion } from '@/lib/quiz-service/types';
 import { openTriviaService } from '@/lib/open-trivia/service';
 import RedisJsonModule from '@redis/json';
-import { GetQuestionsParams } from '@/lib/open-trivia/types';
 import { format } from '@/lib/forrmat';
 import { shuffle } from '@/lib/shuffle';
 import { OpenTriviaFailureError } from '@/lib/errors';
@@ -12,7 +11,7 @@ const redisClient = await redis.createClient({
     modules: { json: RedisJsonModule },
 }).on("error", (err) => console.log("Redis Client Error", err)).connect();
 
-async function createQuiz(id: string, payload: GetQuestionsParams): Promise<QuizQuestion[]> {
+async function createQuiz(id: string, payload: CreateQuizPayload): Promise<QuizQuestion[]> {
     const record = await redisClient.json.get(id) as unknown as PlayerRecord | null;
 
     let openTriviaToken: string | undefined = undefined;

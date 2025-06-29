@@ -5,3 +5,12 @@
     border-radius: 0.2rem;
     box-shadow: var(--elevation);
 }
+
+.primary:disabled,
+.primary[aria-disabled="true"] {
+    background-color: #D6C5B5; /* softened version of --primary */
+    color: #A19182; /* softened version of --foreground */
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.6;
+}
