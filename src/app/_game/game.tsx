@@ -44,7 +44,7 @@ export default function Game() {
     }
 
     useEffect(() => {
-        if (currentQuestion === questions.length) {
+        if (currentQuestion === questions.length && currentQuestion !== 0) {
             fetch(`/api/quiz/terminate`, {method: 'POST', body: JSON.stringify(responses)})
                 .then(r => r.json() as Promise<{ score: number, total: number }>)
                 .then((s) => {
