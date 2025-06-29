@@ -1,13 +1,12 @@
-import type { Question } from '@/core/open-trivia';
-import { shuffle } from '@/lib/shuffle';
 import { FormEventHandler } from 'react';
 import RadioGroup from './ui/radio-group';
 import Button from './ui/button';
 import Stepper from '@/app/_game/ui/stepper';
 import styles from './question.module.css';
+import { QuizQuestion } from '@/lib/quiz-service/types';
 
 interface Prop {
-    question: Question;
+    question: QuizQuestion;
     onAnswer: (response: string) => void;
     step: { current: number; total: number };
 }
@@ -23,8 +22,6 @@ export default function Question({ question, onAnswer, step}: Prop) {
         onAnswer(formValue);
     }
 
-    const allAnswers = shuffle([question.correct_answer, ...question.incorrect_answers])
-
     return (
         <>
             <div className={styles.stepper}>
@@ -32,7 +29,7 @@ export default function Question({ question, onAnswer, step}: Prop) {
             </div>
 
             <form className={styles.question} onSubmit={onSubmit}>
-                <RadioGroup legend={question.question} name="response" options={allAnswers}/>
+                <RadioGroup legend={question.question} name="response" options={question.options}/>
                 <Button>Answer</Button>
             </form>
         </>
