@@ -1,4 +1,4 @@
-import { Question } from '@/lib/open-trivia/types';
+import { GetQuestionsParams, Question } from '@/lib/open-trivia/types';
 
 export interface PlayerRecord {
     openTriviaToken: string;
@@ -10,3 +10,8 @@ export interface QuizQuestion {
     options: string[];
     isActive: boolean;
 }
+
+/**
+ * @public
+ */
+export type CreateQuizPayload = Omit<GetQuestionsParams, 'token'>;

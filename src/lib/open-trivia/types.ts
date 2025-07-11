@@ -19,7 +19,7 @@ export interface BaseResponse {
     response_code: ResponseCode;
 }
 
-export type GameDifficulty = 'any difficulty' | 'easy' | 'medium' | 'hard';
+export type GameDifficulty = 'any_difficulty' | 'easy' | 'medium' | 'hard';
 
 export type GameType = 'multiple' | 'boolean' | 'both';
 
@@ -44,7 +44,7 @@ export interface QuestionsResponse extends BaseResponse {
 export interface GetQuestionsParams {
     amount: number;
     category?: string;
-    difficulty?: GameDifficulty;
-    type?: GameType;
-    token?: string;
+    difficulty: GameDifficulty;
+    type: GameType;
+    token: string;
 }

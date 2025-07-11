@@ -3,20 +3,28 @@ import styles from '@/app/_game/ui/button.module.css'
 interface Props {
     children: React.ReactNode;
     disabled: boolean;
-    onClick: React.MouseEventHandler
+    onClick: React.MouseEventHandler,
+    type: 'button' | 'submit' | 'reset';
 }
 
 const defaultProps: Props = {
     children: null,
     disabled: false,
-    onClick: () => {}
+    onClick: () => {},
+    type: 'button'
 }
 
-export default function Button({ children, disabled, onClick }: Partial<Props>) {
-    const props = { ...defaultProps, children, disabled };
+export default function Button(props: Partial<Props>) {
+    const p = { ...defaultProps, ...props };
     return (
-        <button className={styles.primary} disabled={props.disabled} onClick={onClick}>
-            { props.children }
+        <button
+            className={styles.primary}
+            disabled={p.disabled}
+            type={p.type}
+            onClick={p.onClick}
+            aria-disabled={p.disabled}
+        >
+            { p.children }
         </button>
     )
 }

@@ -16,8 +16,8 @@ export default function Game() {
     const [score, setScore] = useState<{ score: number; total: number }>({ score: 0, total: 0});
 
     const fetchQuestions = (arg: FormValue): void => {
-        console.log(typeof arg.numberOfQuestions)
-        fetch('api/quiz', { method: 'POST', body: JSON.stringify({ amount: +arg.numberOfQuestions }) })
+        setLoadingQuestions(true);
+        fetch('/api/quiz', { method: 'POST', body: JSON.stringify(arg) })
             .then(r => r.json() as Promise<QuizQuestion[]>)
             .then((q: QuizQuestion[]) => { setQuestions(q); setLoadingQuestions(false) })
             .catch(() => { location.reload(); });

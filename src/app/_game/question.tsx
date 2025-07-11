@@ -30,7 +30,7 @@ export default function Question({ question, onAnswer, step}: Prop) {
 
             <form className={styles.question} onSubmit={onSubmit}>
                 <RadioGroup legend={question.question} name="response" options={question.options}/>
-                <Button>Answer</Button>
+                <Button type="submit">Answer</Button>
             </form>
         </>
     )
