@@ -4,7 +4,7 @@ import { randomUUID } from 'node:crypto';
 import { cookies } from 'next/headers';
 import { COOKIE_NAME } from '@/app/api/constants';
 import { GameDifficulty, GameType } from '@/lib/open-trivia/types';
-import { CreateQuizPayload } from '@/lib/quiz-service/types';
+import { CreateQuizPayload, QuizQuestion } from '@/lib/quiz-service/types';
 
 function isGameType(value: string): value is GameType {
     return ['multiple', 'boolean', 'both'].includes(value);
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         difficulty: body.difficulty,
         type: body.type,
     }
-    const questions =  await quizService.createQuiz(id, payload);
+    const questions: QuizQuestion[] = await quizService.createQuiz(id, payload);
 
     return NextResponse.json(questions, { status: 201 });
 }
