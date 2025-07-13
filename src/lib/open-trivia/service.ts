@@ -1,4 +1,10 @@
-import { GetQuestionsParams, Question, QuestionsResponse, ResponseCode, TokenResponse } from '@/lib/open-trivia/types';
+import {
+    GetQuestionsParams,
+    Question,
+    QuestionsResponse,
+    ResponseCode,
+    TokenResponse
+} from '@/lib/open-trivia/types';
 import { HttpError, OpenTriviaFailureError } from '@/lib/errors';
 
 async function getToken(): Promise<string> {
@@ -27,6 +33,9 @@ async function getQuestions(payload: GetQuestionsParams): Promise<Question[]> {
     }
     if (payload.difficulty && payload.difficulty !== 'any_difficulty') {
         queryParams.append('difficulty', payload.difficulty);
+    }
+    if (payload.category) {
+        queryParams.append('category', payload.category.toString());
     }
     const res: Response =  await fetch(`https://opentdb.com/api.php?${queryParams}`);
     const body = await res.json() as QuestionsResponse;
