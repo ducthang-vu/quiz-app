@@ -1,0 +1,10 @@
+.formControl {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    width: 100%;
+    min-width: 500px;
+
+    .formControl__legend {
+        padding: 0 0.5rem;
+    }
+}

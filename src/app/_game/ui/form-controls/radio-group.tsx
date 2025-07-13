@@ -1,6 +1,7 @@
 import styles from '@/app/_game/ui/form-controls/radio-group.module.css';
 import { useState } from 'react';
 import { Option, optionAdapter } from '@/app/_game/ui/form-controls/option';
+import { FormField } from '@/app/_game/ui/form-controls/form-field';
 
 
 interface Props<T extends string> {
@@ -14,9 +15,7 @@ export default function RadioGroup<T extends string>({ legend, name, options}: P
     const optionsData: Option<T>[]  = options.map(optionAdapter);
 
     return (
-        <fieldset className={styles.formControl}>
-            <legend className={styles.formControl__legend}>{legend}</legend>
-
+        <FormField legend={legend}>
             { optionsData.map((o: Option<T>) => (
                 <label className={styles.formControlRadio} key={o.value}>
                     <input
@@ -30,6 +29,6 @@ export default function RadioGroup<T extends string>({ legend, name, options}: P
                     <span>{o.label}</span>
                 </label>
             ))}
-        </fieldset>
+        </FormField>
     )
 }

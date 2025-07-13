@@ -1,32 +1,20 @@
-.formControl {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    width: 100%;
-    min-width: 500px;
+.formControlRadio {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
 
-    .formControl__legend {
-        padding: 0 0.5rem;
-    }
-
-    .formControlRadio {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem;
-
-        input {
-            width: 1rem;
-            height: 1rem;
-        }
-    }
-
-    .formControlRadio:has(input:checked) {
-        background: var(--bark-primary);
-    }
-
-
-    .formControlRadio:hover {
-        background: var(--bark-primary-hover);
+    input {
+        width: 1rem;
+        height: 1rem;
     }
 }
 
+.formControlRadio:has(input:checked) {
+    background: var(--bark-primary);
+}
+
+
+.formControlRadio:hover {
+    background: var(--bark-primary-hover);
+}
