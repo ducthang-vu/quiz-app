@@ -1,22 +1,12 @@
-import styles from '@/app/_game/ui/radio-group.module.css';
+import styles from '@/app/_game/ui/form-controls/radio-group.module.css';
 import { useState } from 'react';
+import { Option, optionAdapter } from '@/app/_game/ui/form-controls/option';
 
-export interface Option<T extends string = string> {
-    value: T;
-    label: string;
-}
 
 interface Props<T extends string> {
     legend: string;
     name: string;
     options: (T | Option<T>)[];
-}
-
-function optionAdapter<T extends string>(option: T | Option<T>): Option<T> {
-    if (typeof option === 'string') {
-        return { value: option, label: option };
-    }
-    return option;
 }
 
 export default function RadioGroup<T extends string>({ legend, name, options}: Props<T>) {

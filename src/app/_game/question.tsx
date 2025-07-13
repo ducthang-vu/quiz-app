@@ -1,5 +1,5 @@
 import { FormEventHandler } from 'react';
-import RadioGroup from './ui/radio-group';
+import RadioGroup from './ui/form-controls/radio-group';
 import Button from './ui/button';
 import Stepper from '@/app/_game/ui/stepper';
 import styles from './question.module.css';
