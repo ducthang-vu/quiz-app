@@ -1,34 +1,27 @@
-import * as redis from 'redis';
 import { CreateQuizPayload, PlayerRecord, QuizQuestion } from '@/lib/quiz-service/types';
 import { openTriviaService } from '@/lib/open-trivia/service';
-import RedisJsonModule from '@redis/json';
-import { format } from '@/lib/forrmat';
+import { format } from '@/lib/format';
 import { shuffle } from '@/lib/shuffle';
 import { OpenTriviaFailureError } from '@/lib/errors';
+import { quizRepository } from '@/lib/quiz-service/repository';
+import { Question } from '@/lib/open-trivia/types';
 
-const redisClient = await redis.createClient({
-    url: process.env.REDIS_URL,
-    modules: { json: RedisJsonModule },
-}).on("error", (err) => console.log("Redis Client Error", err)).connect();
+const quizQuestionAdapter = (q: Question): QuizQuestion => ({
+    question: q.question,
+    options: shuffle([q.correct_answer, ...q.incorrect_answers]),
+    isActive: false
+});
 
 async function createQuiz(id: string, payload: CreateQuizPayload): Promise<QuizQuestion[]> {
-    const record = await redisClient.json.get(id) as unknown as PlayerRecord | null;
+    const record: PlayerRecord | null = await quizRepository.getRecord(id);
 
-    let openTriviaToken: string | undefined = undefined;
-
-    if (!record?.openTriviaToken) {
-        openTriviaToken = await openTriviaService.getToken();
-    }
-
-    if (!openTriviaToken) {
-        openTriviaToken = record!.openTriviaToken;
-    }
+    const openTriviaToken = record?.openTriviaToken ?? await openTriviaService.getToken();
 
     const questions = await openTriviaService.getQuestions({
         ...payload,
         token: openTriviaToken
     }).catch(async (e) => {
-        await redisClient.del(id);
+        await quizRepository.deleteRecord(id);
         throw e;
     });
 
@@ -44,19 +37,14 @@ async function createQuiz(id: string, payload: CreateQuizPayload): Promise<QuizQ
             correct_answer: format(q.correct_answer),
             incorrect_answers: q.incorrect_answers.map(format),
         }))
-    }
+    };
 
-    // @ts-expect-error JSON module is used
-    await redisClient.json.set(id, '$', newRecord);
-    return newRecord.quiz.map(q => ({
-        question: q.question,
-        options: shuffle([q.correct_answer, ...q.incorrect_answers]),
-        isActive: false
-    }));
+    await quizRepository.createRecord(id, newRecord);
+    return newRecord.quiz.map(quizQuestionAdapter);
 }
 
 async function terminateQuiz(id: string, payload : { answers: string[]} ): Promise<{ score: number, total: number }> {
-    const record = await redisClient.json.get(id) as unknown as PlayerRecord | null;
+    const record: PlayerRecord | null = await quizRepository.getRecord(id);
     if (!record) {
         throw new Error(`Quiz with id ${id} does not exist.`);
     }
