@@ -1,48 +1,38 @@
-.formControl {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    width: 100%;
-    min-width: 500px;
+.formControlSelect {
+    background-color: var(--background);
+    color: var(--foreground);
+    border: 1.5px solid var(--primary);
+    border-radius: 6px;
+    padding: 0.5em 1em;
+    font-size: 1rem;
+    font-family: inherit;
+    box-shadow: var(--elevation);
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    appearance: none; /* Remove default arrow for custom styling */
+    background-image:
+            url("data:image/svg+xml,%3Csvg fill='%238B5E3C' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75em center;
+    background-size: 1em;
+}
 
-    .formControl__legend {
-        padding: 0 0.5rem;
-    }
+.formControlSelect:hover, .formControlSelect:focus {
+    border-color: var(--bark-primary-hover);
+    box-shadow: 0 0 0 3px rgba(139, 94, 60, 0.3);
+    outline: none;
+}
 
+@media (prefers-color-scheme: dark) {
     .formControlSelect {
         background-color: var(--background);
         color: var(--foreground);
-        border: 1.5px solid var(--primary);
-        border-radius: 6px;
-        padding: 0.5em 1em;
-        font-size: 1rem;
-        font-family: inherit;
+        border-color: var(--primary);
         box-shadow: var(--elevation);
-        cursor: pointer;
-        transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        appearance: none; /* Remove default arrow for custom styling */
-        background-image:
-                url("data:image/svg+xml,%3Csvg fill='%238B5E3C' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 0.75em center;
-        background-size: 1em;
     }
-
     .formControlSelect:hover, .formControlSelect:focus {
         border-color: var(--bark-primary-hover);
-        box-shadow: 0 0 0 3px rgba(139, 94, 60, 0.3);
-        outline: none;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        .formControlSelect {
-            background-color: var(--background);
-            color: var(--foreground);
-            border-color: var(--primary);
-            box-shadow: var(--elevation);
-        }
-        .formControlSelect:hover, select:focus {
-            border-color: var(--bark-primary-hover);
-            box-shadow: 0 0 0 3px rgba(139, 73, 47, 0.5);
-        }
+        box-shadow: 0 0 0 3px rgba(139, 73, 47, 0.5);
     }
 }
+
