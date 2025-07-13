@@ -13,10 +13,10 @@ export default function End({ score, total }: Props) {
         location.reload(); // This will reload the page and reset the game
     };
     return (
-        <div>
-            <div className={styles.message}>
-                <p>Thank you for playing!</p>
-                <p>You scored {score}/{total}!</p>
+        <div className={styles.container}>
+            <div className={styles.messages}>
+                <h2 className={styles.message}>🏆 You scored {score}/{total}!</h2>
+                <h2 className={styles.message}>🎉 Thank you for playing!</h2>
             </div>
 
             <Button onClick={startNewGame}>Start a new game!</Button>
