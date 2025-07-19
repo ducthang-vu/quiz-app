@@ -1,7 +1,7 @@
-import styles from '@/app/_game/ui/form-controls/radio-group.module.css';
+import styles from '@/app/_ui/form-controls/radio-group.module.css';
 import { useState } from 'react';
-import { Option, optionAdapter } from '@/app/_game/ui/form-controls/option';
-import { FormField } from '@/app/_game/ui/form-controls/form-field';
+import { Option, optionAdapter } from '@/app/_ui/form-controls/option';
+import { FormField } from '@/app/_ui/form-controls/form-field';
 
 
 interface Props<T extends string> {

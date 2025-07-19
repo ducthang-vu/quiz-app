@@ -1,4 +1,4 @@
-import styles from '@/app/_game/ui/button.module.css'
+import styles from '@/app/_ui/button.module.css'
 
 interface Props {
     children: React.ReactNode;

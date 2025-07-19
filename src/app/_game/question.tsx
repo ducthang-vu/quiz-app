@@ -1,7 +1,7 @@
 import { FormEventHandler } from 'react';
-import RadioGroup from './ui/form-controls/radio-group';
-import Button from './ui/button';
-import Stepper from '@/app/_game/ui/stepper';
+import RadioGroup from '@/app/_ui/form-controls/radio-group';
+import Button from '@/app/_ui/button';
+import Stepper from '@/app/_ui/stepper';
 import styles from './question.module.css';
 import { QuizQuestion } from '@/lib/quiz-service/types';
 

@@ -1,4 +1,4 @@
-import Button from "./ui/button";
+import Button from "@/app/_ui/button";
 import styles from "./end.module.css";
 
 interface Props {

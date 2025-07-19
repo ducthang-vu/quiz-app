@@ -1,11 +1,11 @@
 import { FormEventHandler } from "react";
 import styles from "./initial-form.module.css";
-import RadioGroup from "./ui/form-controls/radio-group";
-import Button from "./ui/button";
+import RadioGroup from "@/app/_ui/form-controls/radio-group";
+import Button from "@/app/_ui/button";
 import { GAME_CATEGORIES, GameCategory, GameDifficulty, GameType } from '@/lib/open-trivia/types';
-import { Option } from '@/app/_game/ui/form-controls/option';
+import { Option } from '@/app/_ui/form-controls/option';
 import { CATEGORIES } from '@/app/_game/categories';
-import Select from '@/app/_game/ui/form-controls/select';
+import Select from '@/app/_ui/form-controls/select';
 
 export interface FormValue {
     amount: number;
