@@ -7,6 +7,7 @@ import { FormField } from '@/app/_ui/form-controls/form-field';
 
 
 interface Props<T extends string> {
+    disabled?: boolean;
     legend: string;
     name: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -14,7 +15,7 @@ interface Props<T extends string> {
     value?: T;
 }
 
-export default function RadioGroup<T extends string>({ legend, name, onChange, options, value }: Props<T>) {
+export default function RadioGroup<T extends string>({ disabled, legend, name, onChange, options, value }: Props<T>) {
     const isControlled = value !== undefined;
     const [internalValue, setInternalValue] = useState<T | null>(isControlled ? value ?? null : null);
     const selectedValue = isControlled ? value ?? null : internalValue;
@@ -40,6 +41,7 @@ export default function RadioGroup<T extends string>({ legend, name, onChange, o
                 <label className={styles.formControlRadio} key={o.value}>
                     <input
                         type="radio"
+                        disabled={!!disabled}
                         value={o.value}
                         name={name}
                         required

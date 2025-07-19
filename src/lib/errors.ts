@@ -20,7 +20,15 @@ export class OpenTriviaFailureError extends Error {
 export class QuizNotCompletedError extends Error {
     public readonly type = 'QuizNotCompletedError';
 
-    constructor(message: string, public lastAnsweredQuestion: number) {
+    constructor(message: string, public readonly lastAnsweredQuestion: number) {
+        super(message);
+    }
+}
+
+export class AlreadyAnsweredError extends Error {
+    public readonly type = 'AlreadyAnsweredError';
+
+    constructor(message: string, public readonly lastAnsweredQuestion: number) {
         super(message);
     }
 }

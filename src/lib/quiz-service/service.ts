@@ -1,15 +1,21 @@
-import { CreateQuizPayload, PlayerRecord, QuizQuestion, Score } from '@/lib/quiz-service/types';
+import {
+    CreateQuizPayload,
+    PlayerRecord,
+    QuestionRecord,
+    QuizQuestion,
+    QuizQuestionMetadata,
+    Score
+} from '@/lib/quiz-service/types';
 import { openTriviaService } from '@/lib/open-trivia/service';
 import { format } from '@/lib/format';
 import { shuffle } from '@/lib/shuffle';
-import { OpenTriviaFailureError, QuizNotCompletedError } from '@/lib/errors';
+import { AlreadyAnsweredError, OpenTriviaFailureError, QuizNotCompletedError } from '@/lib/errors';
 import { quizRepository } from '@/lib/quiz-service/repository';
-import { Question } from '@/lib/open-trivia/types';
 
-const quizQuestionAdapter = (q: Question): QuizQuestion => ({
+const quizQuestionAdapter = (q: QuestionRecord): QuizQuestion => ({
     question: q.question,
     options: shuffle([q.correct_answer, ...q.incorrect_answers]),
-    answer: null
+    answer: q.answer
 });
 
 async function createQuiz(id: string, payload: CreateQuizPayload): Promise<QuizQuestion[]> {
@@ -44,29 +50,54 @@ async function createQuiz(id: string, payload: CreateQuizPayload): Promise<QuizQ
     return newRecord.quiz.map(quizQuestionAdapter);
 }
 
-/**
- * @deprecated
- * @param id
- * @param payload
- */
-async function terminateQuiz(id: string, payload : { answers: string[]} ): Promise<void> {
+export async function getQuestion(id: string, payload: { questionIndex: number} ): Promise<QuizQuestion & QuizQuestionMetadata> {
+    const record: PlayerRecord | null = await quizRepository.getRecord(id);
+    if (!record) {
+        throw new Error(`Quiz with id ${id} does not exist.`);
+    }
+    const question = record.quiz[payload.questionIndex];
+    if (!question) {
+        throw new Error(`Question with index ${payload.questionIndex} does not exist in quiz with id ${id}.`);
+    }
+    return {
+        ...quizQuestionAdapter(question),
+        index: payload.questionIndex,
+        total: record.quiz.length,
+        currentQuestionIndex: record.quiz.findIndex(q => q.answer === null)
+    };
+}
+
+export async function answerQuestion(id: string, payload: { questionIndex: number, answer: string}): Promise<void> {
     const record: PlayerRecord | null = await quizRepository.getRecord(id);
     if (!record) {
         throw new Error(`Quiz with id ${id} does not exist.`);
     }
 
-    const questions = record.quiz.map((q, i)=> ({
-        ...q,
-        answer: payload.answers[i]
-    }));
+    const question = record.quiz[payload.questionIndex];
+    if (!question) {
+        const error = new Error(`Question with index ${payload.questionIndex} does not exist in quiz with id ${id}.`);
+        console.error(error);
+        throw error;
+    }
 
-    const updatedRecord: PlayerRecord = {
-        ...record,
-        quiz: questions
+    if (question.answer) {
+        const notAnswered = record.quiz.findIndex(q => q.answer === null);
+        const error = new AlreadyAnsweredError(
+            `Question with index ${payload.questionIndex} has already been answered in quiz with id ${id}.`,
+            notAnswered - 1
+        );
+        console.error(error);
+        throw error;
+    }
+
+    const newRecord: PlayerRecord = {...record};
+    newRecord.quiz[payload.questionIndex] = {
+        ...question,
+        answer: payload.answer
     };
-
-    await quizRepository.setRecord(id, updatedRecord);
+    await quizRepository.setRecord(id, newRecord);
 }
+
 
 async function getScore(id: string): Promise<Score> {
     const record: PlayerRecord | null = await quizRepository.getRecord(id);
@@ -89,7 +120,8 @@ async function getScore(id: string): Promise<Score> {
 }
 
 export const quizService = {
+    answerQuestion,
     createQuiz,
-    getScore,
-    terminateQuiz
+    getQuestion,
+    getScore
 }

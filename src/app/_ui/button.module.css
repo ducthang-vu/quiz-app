@@ -14,3 +14,31 @@
     box-shadow: none;
     opacity: 0.6;
 }
+
+.tertiary {
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+    padding: 0.5rem 1rem;
+    border-radius: 0.2rem;
+    box-shadow: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.tertiary:hover:not(:disabled):not([aria-disabled="true"]) {
+    background-color: rgba(139, 94, 60, 0.1); /* subtle tint of --primary */
+}
+
+.tertiary:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.tertiary:disabled,
+.tertiary[aria-disabled="true"] {
+    color: var(--disabled-fg, #A19182);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
