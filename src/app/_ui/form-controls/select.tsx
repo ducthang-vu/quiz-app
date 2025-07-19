@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from 'react';
 import styles from '@/app/_ui/form-controls/select.module.css';
 import { FormField } from '@/app/_ui/form-controls/form-field';

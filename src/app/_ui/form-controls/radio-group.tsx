@@ -1,3 +1,5 @@
+"use client";
+
 import styles from '@/app/_ui/form-controls/radio-group.module.css';
 import { useState } from 'react';
 import { Option, optionAdapter } from '@/app/_ui/form-controls/option';

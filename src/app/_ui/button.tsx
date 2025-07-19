@@ -1,3 +1,5 @@
+"use client"
+
 import styles from '@/app/_ui/button.module.css'
 
 interface Props {
