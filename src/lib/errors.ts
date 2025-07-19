@@ -15,3 +15,12 @@ export class OpenTriviaFailureError extends Error {
         super(message);
     }
 }
+
+
+export class QuizNotCompletedError extends Error {
+    public readonly type = 'QuizNotCompletedError';
+
+    constructor(message: string, public lastAnsweredQuestion: number) {
+        super(message);
+    }
+}

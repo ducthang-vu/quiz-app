@@ -15,6 +15,24 @@
 
 .main {
     flex-grow: 1;
+
+    .page {
+        display: flex;
+        justify-content: center;
+        padding: 2rem 0;
+        position: relative;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .page {
+            --gray-rgb: 255, 255, 255;
+            --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
+            --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
+
+            --button-primary-hover: #ccc;
+            --button-secondary-hover: #1a1a1a;
+        }
+    }
 }
 
 .footer {
