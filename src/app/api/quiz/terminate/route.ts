@@ -11,7 +11,6 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
 
     const res: string[] = await request.json();
-    const score = await quizService.terminateQuiz(id, { answers: res })
-
-    return NextResponse.json(score, { status: 201 });
+    await quizService.terminateQuiz(id, { answers: res })
+    return NextResponse.json('ok', { status: 201 });
 }

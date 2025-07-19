@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import InitialForm, { FormValue } from '@/app/_game/initial-form';
 import QuestionCmp from '@/app/_game/question';
 import { QuizQuestion } from '@/lib/quiz-service/types';
-import End from '@/app/_game/end';
+import { useRouter } from 'next/navigation';
 
 type GamePhase = 'initial' | 'playing' | 'end';
 
@@ -13,7 +13,7 @@ export default function Game() {
     const [loadingQuestions, setLoadingQuestions] = useState<boolean>(false);
     const [currentQuestion, setCurrentQuestion] = useState<number>(0);
     const [responses, setResponses] = useState<string[]>([]);
-    const [score, setScore] = useState<{ score: number; total: number }>({ score: 0, total: 0});
+    const router = useRouter();
 
     const fetchQuestions = (arg: FormValue): void => {
         setLoadingQuestions(true);
@@ -29,6 +29,7 @@ export default function Game() {
         } else if (currentQuestion < questions.length) {
             return 'playing';
         } else {
+            // TODO need to keep this for now
             return 'end';
         }
     })()
@@ -45,11 +46,9 @@ export default function Game() {
 
     useEffect(() => {
         if (currentQuestion === questions.length && currentQuestion !== 0) {
-            fetch(`/api/quiz/terminate`, {method: 'POST', body: JSON.stringify(responses)})
-                .then(r => r.json() as Promise<{ score: number, total: number }>)
-                .then((s) => {
-                    setScore(s)
-                });
+            fetch(`/api/quiz/terminate`, {method: 'POST', body: JSON.stringify(responses)}).then(
+                () => router.push('/quiz/end'),
+            );
         }
     }, [currentQuestion])
 
@@ -57,7 +56,7 @@ export default function Game() {
         case 'playing':
             return <QuestionCmp question={questions[currentQuestion]} onAnswer={manageResponse} step={step}></QuestionCmp>;
         case 'end':
-            return <End {...score}></End>;
+            return <></>;
         default:
             return <InitialForm startGame={fetchQuestions} disabled={loadingQuestions}></InitialForm>;
     }

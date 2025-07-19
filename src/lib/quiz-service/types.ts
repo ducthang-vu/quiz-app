@@ -1,14 +1,24 @@
 import { GetQuestionsParams, Question } from '@/lib/open-trivia/types';
 
-export interface PlayerRecord {
-    openTriviaToken: string;
-    quiz: Question[]
+interface HasAnswer {
+    answer: string | null;
 }
 
-export interface QuizQuestion {
+export interface QuestionRecord extends Question, HasAnswer {}
+
+export interface PlayerRecord {
+    openTriviaToken: string;
+    quiz: QuestionRecord[]
+}
+
+export interface QuizQuestion extends HasAnswer {
     question: string;
     options: string[];
-    isActive: boolean;
+}
+
+export interface Score {
+    score: number;
+    total: number;
 }
 
 /**

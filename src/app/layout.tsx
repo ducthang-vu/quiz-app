@@ -36,7 +36,9 @@ export default function RootLayout({
             </nav>
           </header>
           <main className={styles.main}>
-            {children}
+            <div className={styles.page}>
+              {children}
+            </div>
           </main>
           <footer className={styles.footer}>
             <span>

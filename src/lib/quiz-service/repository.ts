@@ -11,7 +11,7 @@ async function getRecord(id: string): Promise<PlayerRecord | null> {
     return await redisClient.json.get(id) as unknown as PlayerRecord | null;
 }
 
-async function createRecord(id: string, record: PlayerRecord): Promise<void> {
+async function setRecord(id: string, record: PlayerRecord): Promise<void> {
     // @ts-expect-error JSON module is used
     await redisClient.json.set(id, '$', record);
 }
@@ -22,6 +22,6 @@ async function deleteRecord(id: string): Promise<void> {
 
 export const quizRepository = {
     getRecord,
-    createRecord,
+    setRecord,
     deleteRecord
 }
