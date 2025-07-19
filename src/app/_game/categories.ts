@@ -1,5 +1,5 @@
 import { GAME_CATEGORIES, GameCategory } from '@/lib/open-trivia/types';
-import { Option } from '@/app/_game/ui/form-controls/option';
+import { Option } from '@/app/_ui/form-controls/option';
 
 type CategoryName = keyof typeof GAME_CATEGORIES;
 

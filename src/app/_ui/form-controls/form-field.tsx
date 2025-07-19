@@ -1,4 +1,4 @@
-import styles from '@/app/_game/ui/form-controls/form-field.module.css';
+import styles from '@/app/_ui/form-controls/form-field.module.css';
 
 interface Props {
     children: React.ReactNode;
