@@ -21,7 +21,16 @@ const formValueSchema = z.object({
 async function startGame(formData: FormData) {
     "use server";
     const cookie = await cookies();
-    const id: string = cookie.get(COOKIE_NAME)?.value ?? randomUUID();
+    if (!cookie.get(COOKIE_NAME)?.value) {
+        cookie.set(COOKIE_NAME, randomUUID(), { maxAge: 60 * 60 * 24 * 10 });
+    }
+    const id = cookie.get(COOKIE_NAME)?.value;
+
+    if (!id) {
+        const error = new Error(`Cookie ${COOKIE_NAME} not found and could be set`);
+        console.error(error);
+        throw error;
+    }
 
     const rawValue = Object.fromEntries(formData);
     const p = formValueSchema.safeParse(rawValue);
