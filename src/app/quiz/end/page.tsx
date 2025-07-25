@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { quizService } from '@/lib/quiz-service/service';
-import { COOKIE_NAME } from '@/app/api/constants';
+import { COOKIE_NAME } from '@/app/constants';
 import { Score } from '@/lib/quiz-service/types';
 
 const startNewGame = async () => {

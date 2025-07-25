@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 import RadioGroup from '@/app/_ui/form-controls/radio-group';
 import Button from '@/app/_ui/button';
 import { quizService } from '@/lib/quiz-service/service';
-import { COOKIE_NAME } from '@/app/api/constants';
+import { COOKIE_NAME } from '@/app/constants';
 import { redirect } from 'next/navigation';
 import { AlreadyAnsweredError } from '@/lib/errors';
 import { Banner } from '@/app/_ui/banner';
@@ -86,12 +86,9 @@ export default async function Question({ params }: PageProps) {
                             >Go to current question</Button>
                         </p>
                     </Banner>
-                    : <Button type="submit">Answer</Button>
+                    : <Button type="submit" disabled={!!question.answer}>Answer</Button>
                 }
-
             </form>
-
-
         </>
     )
 }
