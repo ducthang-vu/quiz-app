@@ -21,6 +21,12 @@ export interface Score {
     total: number;
 }
 
+export interface QuizQuestionMetadata {
+    index: number;
+    total: number;
+    currentQuestionIndex: number;
+}
+
 /**
  * @public
  */
