@@ -49,11 +49,15 @@ export default async function Question({ params }: PageProps) {
     const id = cookie.get(COOKIE_NAME)?.value;
 
     if (!id) {
+        console.error(`Cookie ${id} not found`);
         redirect('/404');
     }
 
     const question: QuizQuestion & QuizQuestionMetadata = await quizService.getQuestion(id, { questionIndex }).catch(
-        () => redirect('/404')
+        (e: unknown) => {
+            console.error(e)
+            redirect('/404')
+        }
     );
 
     const answerQuestion = answerQuestionFactory(questionIndex, id, questionIndex + 1 === question.total);
