@@ -7,7 +7,7 @@ type GROUP = 'Science' | 'Entertainment' | 'GENERAL';
 
 type CategoryIdString = `${GameCategory}`;
 
-interface Group {
+export interface Group {
     items: GameCategoryItem[];
     label: string;
 }

@@ -1,5 +1,5 @@
-import Game from '@/app/_game/game';
+import { redirect } from 'next/navigation';
 
 export default async function Home() {
-    return <Game></Game>;
+    redirect(`/quiz/new`);
 }
