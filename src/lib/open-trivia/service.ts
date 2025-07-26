@@ -27,7 +27,7 @@ async function getToken(): Promise<string> {
 
 async function getQuestions(payload: GetQuestionsParams): Promise<Question[]> {
     console.log(`Fetching new questions from OpenTrivia: ${JSON.stringify(payload)}`);
-    const queryParams = new URLSearchParams(`amount=${payload.amount}&token=${payload.token}`);
+    const queryParams = new URLSearchParams(`amount=${payload.amount}`);
     if (payload.type !== 'both') {
         queryParams.append('type', payload.type);
     }

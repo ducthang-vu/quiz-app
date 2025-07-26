@@ -18,7 +18,7 @@ const formValueSchema = z.object({
     )
 })
 
-async function startGame(formData: FormData) {
+async function startGame(formData: FormData): Promise<void> {
     "use server";
     const cookie = await cookies();
     if (!cookie.get(COOKIE_NAME)?.value) {
@@ -38,7 +38,12 @@ async function startGame(formData: FormData) {
         console.error('Invalid payload:', p.error);
         throw new Error('Invalid payload');
     }
-    await quizService.createQuiz(id, p.data as CreateQuizPayload);
+    try {
+        await quizService.createQuiz(id, p.data as CreateQuizPayload);
+    } catch (error) {
+        console.error('Error creating quiz:', error);
+        redirect('/');
+    }
     redirect('/quiz/0');
 }
 
