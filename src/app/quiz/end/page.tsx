@@ -8,7 +8,7 @@ import { Score } from '@/lib/quiz-service/types';
 
 const startNewGame = async () => {
     "use server"
-    redirect('/')
+    redirect('/quiz/new')
 };
 
 export default async function End() {
