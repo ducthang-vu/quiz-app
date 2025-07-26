@@ -19,13 +19,8 @@ const quizQuestionAdapter = (q: QuestionRecord): QuizQuestion => ({
 });
 
 async function createQuiz(id: string, payload: CreateQuizPayload): Promise<QuizQuestion[]> {
-    const record: PlayerRecord | null = await quizRepository.getRecord(id);
-
-    const openTriviaToken = record?.openTriviaToken ?? await openTriviaService.getToken();
-
     const questions = await openTriviaService.getQuestions({
         ...payload,
-        token: openTriviaToken
     }).catch(async (e) => {
         await quizRepository.deleteRecord(id);
         throw e;
@@ -36,7 +31,6 @@ async function createQuiz(id: string, payload: CreateQuizPayload): Promise<QuizQ
     }
 
     const newRecord: PlayerRecord = {
-        openTriviaToken,
         quiz: questions.map(q => ({
             ...q,
             question: format(q.question),

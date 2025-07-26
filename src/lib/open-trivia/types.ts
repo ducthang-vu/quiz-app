@@ -76,5 +76,4 @@ export interface GetQuestionsParams {
     category: GameCategory;
     difficulty: GameDifficulty;
     type: GameType;
-    token: string;
 }

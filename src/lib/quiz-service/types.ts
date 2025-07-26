@@ -7,7 +7,6 @@ interface HasAnswer {
 export interface QuestionRecord extends Question, HasAnswer {}
 
 export interface PlayerRecord {
-    openTriviaToken: string;
     quiz: QuestionRecord[]
 }
 
